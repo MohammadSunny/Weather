@@ -1,16 +1,19 @@
+
 window.addEventListener('load', ()=> {
-    let long;
-    let lat;
+    let long=-88.039894 ;
+    let lat=30.695366;
 
-
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            long = position.coords.longitude;
-            lat = position.coords.latitude;
+    let tempDesc = document.querySelector(".temparature-description");
+    let tempDegree = document.querySelector(".temparature-degree");
+    let tempLoc = document.querySelector(".location-timezone");
+    // if(navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(position => {
+    //         long = position.coords.longitude;
+    //         lat = position.coords.latitude;
 
 
             const proxy = "https://cors-anywhere.herokuapp.com/";
-            const api =`${proxy}https://api.darksky.net/forecast/e1e0cf9d52dfdb272e5dbf73c0a2bf37/$(lat),$(long)`;
+            const api =`${proxy}https://api.darksky.net/forecast/e1e0cf9d52dfdb272e5dbf73c0a2bf37/${lat},${long}`;
 
             fetch(api)
         .then(response =>{
@@ -19,8 +22,14 @@ window.addEventListener('load', ()=> {
         })
         .then(data => {
             console.log(data);
+            const {temperature, summary} = data.currently;
+
+            tempDegree.textContent = temperature;
+            tempDesc.textContent = summary;
+            tempLoc.textContent = data.timezone;
+            console.log(data.timezone, summary)
 
         });
-        });
-    }
+        // });
+    // }
 });
