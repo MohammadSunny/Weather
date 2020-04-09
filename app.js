@@ -1,7 +1,7 @@
 
 window.addEventListener('load', ()=> {
-    let long=-88.039894 ;
-    let lat=30.695366;
+    let long=-88.8853 ;
+    let lat=30.3960;
 
     let tempDesc = document.querySelector(".temparature-description");
     let tempDegree = document.querySelector(".temparature-degree");
@@ -22,14 +22,22 @@ window.addEventListener('load', ()=> {
         })
         .then(data => {
             console.log(data);
-            const {temperature, summary} = data.currently;
+            const {temperature, summary, icon} = data.currently;
 
             tempDegree.textContent = temperature;
             tempDesc.textContent = summary;
             tempLoc.textContent = data.timezone;
             console.log(data.timezone, summary)
+            setIcons(icon, document.querySelector(".icon"))
 
         });
         // });
     // }
+
+    function setIcons(icon, iconID) {
+        const skycons = new Skycons({color: "white"});
+        const currentIcon = icon.replace(/-/g, "_").toUpperCase();
+        skycons.play();
+        return skycons.set(iconID, skycons[currentIcon]);
+    }
 });
