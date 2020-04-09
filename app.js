@@ -6,6 +6,7 @@ window.addEventListener('load', ()=> {
     let tempDesc = document.querySelector(".temparature-description");
     let tempDegree = document.querySelector(".temparature-degree");
     let tempLoc = document.querySelector(".location-timezone");
+    let temphum = document.querySelector(".temparature-humidity");
     // if(navigator.geolocation) {
     //     navigator.geolocation.getCurrentPosition(position => {
     //         long = position.coords.longitude;
@@ -22,12 +23,13 @@ window.addEventListener('load', ()=> {
         })
         .then(data => {
             console.log(data);
-            const {temperature, summary} = data.currently;
+            const {temperature, humidity, summary} = data.currently;
 
             tempDegree.textContent = temperature;
             tempDesc.textContent = summary;
             tempLoc.textContent = data.timezone;
-            console.log(data.timezone, summary)
+            temphum.textContent = humidity;
+            console.log(data.timezone,humidity, summary)
 
         });
         // });
